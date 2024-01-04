@@ -1,14 +1,9 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from '../components/layout';
-import utilStyles from '../styles/utils.module.css';
-import { getSortedPostsData } from '../lib/posts';
-import Link from 'next/link';
-import Date from '../components/date';
+import Layout from '../components/layout';
 import { GetStaticProps } from 'next';
 import Map, { Source, Layer, Marker, Popup } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useState, useMemo, useRef, ReactElement } from 'react';
-import { dataLayer } from '../components/map-style';
 import { getStates, getSites, Site } from '../lib/states';
 import type { FillLayer, LineLayer, MapRef } from 'react-map-gl';
 import bbox from '@turf/bbox';
