@@ -1,0 +1,40 @@
+{
+    "team": [
+        {
+            "name": "Grant Scott",
+            "institution": "University of Missouri",
+            "title": "Primary Investigator",
+            "image": "/images/grant.jpg"
+        },
+        {
+            "name": "Derek Weitzel",
+            "institution": "University of Nebraska-Lincoln",
+            "image": "/images/derek.png",
+            "title": "Operations Lead / Co-PI"
+        },
+        {
+            "name": "Brian Burkhart",
+            "institution": "OneNet",
+            "title": "Co-PI",
+            "image": "/images/brian.jpg"
+        },
+        {
+            "name": "Paul Kern",
+            "institution": "South Dakota State University",
+            "title": "Co-PI",
+            "image": "/images/paul.jpg"
+        },
+        {
+            "name": "Caughlin Bohn",
+            "institution": "University of Nebraska-Lincoln",
+            "title": "Outreach Coordinator",
+            "image": "/images/caughlin.jpg"
+        },
+        {
+            "name": "Huijun Zhu",
+            "institution": "University of Nebraska-Lincoln",
+            "title": "DevOps Engineer",
+            "image": "/images/huijun.png"
+        }
+    ]
+}

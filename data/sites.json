@@ -1,0 +1,116 @@
+{
+    "sites": [
+        {
+            "name": "University of Nebraska-Lincoln",
+            "url": "https://www.unl.edu/",
+            "logo": "/images/unl.svg",
+            "lat": 40.81975971600331,
+            "log": -96.70554788002366,
+            "hostname": "unl.gp-argo.greatplains.net",
+            "dashboard": "https://unl.gp-argo.greatplains.net/dashboard",
+            "active": true,
+            "city": "Lincoln",
+            "state": "Nebraska"
+        },
+        {
+            "name": "University of South Dakota",
+            "url": "http://www.usd.edu/",
+            "logo": "/images/usd.png",
+            "lat": 42.7885252002985,
+            "log": -96.92528021778602,
+            "hostname": "usd.gp-argo.greatplains.net",
+            "city": "Vermillion",
+            "state": "South Dakota"
+        },
+        {
+            "name": "Kansas State University",
+            "url": "https://www.k-state.edu/",
+            "logo": "/images/ksu.png",
+            "lat": 39.19756008319545,
+            "log": -96.58472490196472,
+            "hostname": "ksu.gp-argo.greatplains.net",
+            "city": "Manhattan",
+            "state": "Kansas"
+        },
+        {
+            "name": "University of Kansas",
+            "url": "https://ku.edu/",
+            "logo": "/images/ku.png",
+            "lat": 38.95456914692783,
+            "log": -95.25580683080793,
+            "hostname": "ku.gp-argo.greatplains.net",
+            "city": "Lawrence",
+            "state": "Kansas"
+        },
+        {
+            "name": "South Dakota State University",
+            "url": "https://www.sdstate.edu/",
+            "logo": "/images/sdstate.png",
+            "lat": 44.316675845973336,
+            "log": -96.78583226440547,
+            "hostname": "sdsu.gp-argo.greatplains.net",
+            "city": "Brookings",
+            "state": "South Dakota"
+        },
+        {
+            "name": "Oklahoma State University",
+            "url": "https://www.okstate.edu/",
+            "logo": "/images/osu.png",
+            "lat": 36.122368970037535,
+            "log": -97.07137710711247,
+            "hostname": "osu.gp-argo.greatplains.net",
+            "city": "Stillwater",
+            "state": "Oklahoma"
+        },
+        {
+            "name": "University of Arkansas for Medical Sciences",
+            "url": "https://www.uams.edu/",
+            "logo": "/images/uams.png",
+            "lat": 34.74656423377511,
+            "log": -92.32434264525463,
+            "hostname": "uams.gp-argo.greatplains.net",
+            "city": "Little Rock",
+            "state": "Arkansas"
+        },
+        {
+            "name": "University of Arkansas",
+            "url": "https://www.uark.edu/",
+            "logo": "/images/uark.svg",
+            "lat": 36.043191096568194,
+            "log": -94.16798375298457,
+            "hostname": "uark.gp-argo.greatplains.net",
+            "city": "Fayetteville",
+            "state": "Arkansas"
+        },
+        {
+            "name": "Missouri S&T",
+            "url": "https://www.mst.edu/",
+            "logo": "/images/mst.png",
+            "lat": 37.95365402665969,
+            "log": -91.77515432284582,
+            "hostname": "mst.gp-argo.greatplains.net",
+            "city": "Rolla",
+            "state": "Missouri"
+        },
+        {
+            "name": "University of Missouri",
+            "url": "https://missouri.edu/",
+            "logo": "/images/mizzou.png",
+            "lat": 38.9390950307326,
+            "log": -92.32155820134282,
+            "hostname": "mizzou.gp-argo.greatplains.net",
+            "city": "Columbia",
+            "state": "Missouri"
+        },
+        {
+            "name": "University of Tulsa",
+            "url": "https://utulsa.edu/",
+            "logo": "/images/utulsa.png",
+            "lat": 36.15329114058467,
+            "log": -95.94265522380262,
+            "hostname": "utulsa.gp-argo.greatplains.net",
+            "city": "Tulsa",
+            "state": "Oklahoma"
+        }
+    ]
+}

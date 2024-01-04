@@ -1,11 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
+//import styles from './layout.module.css';
+//import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-
-const name = '[Your Name]';
-export const siteTitle = 'Next.js Sample Website';
+import Footer from './footer';
 
 export default function Layout({
   children,
@@ -14,8 +12,11 @@ export default function Layout({
   children: React.ReactNode;
   home?: boolean;
 }) {
+  function expandMobileMenu() {
+    document.getElementById("mobile-menu")?.classList.toggle("hidden");
+  }
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -24,52 +25,40 @@ export default function Layout({
         />
         <meta
           property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle,
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+          content={`https://gp-engine.org/images/gp-engine-logo.png`}
         />
-        <meta name="og:title" content={siteTitle} />
+        <meta name="og:title" content="GP-ENGINE" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt={name}
-              />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
-          </>
-        )}
-      </header>
-      <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )}
+      <div className="">
+        <nav className="py-5 bg-green-900">
+          <div className="container flex flex-wrap justify-between items-center mx-auto">
+            <a href="/" className="flex items-center">
+              <span className="self-center text-xl font-semibold whitespace-nowrap text-white">GP-ENGINE</span>
+            </a>
+            <button onClick={expandMobileMenu} data-collapse-toggle="mobile-menu" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden focus:outline-none" aria-controls="mobile-menu-2" aria-expanded="false">
+              <span className="sr-only">Open main menu</span>
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+            </button>
+            <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
+              <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                <li>
+                  <Link href="/about" className="block mt-4 lg:inline-block lg:mt-0 text-white link-underline mr-4 active:font-bold">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <a href="https://github.com/MU-HPDI/gp-engine-tutorials" className="block mt-4 lg:inline-block lg:mt-0 text-white link-underline mr-4">
+                    Docs
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <main>{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 }
