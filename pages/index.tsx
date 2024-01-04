@@ -48,7 +48,8 @@ export default function Home(
 
   // Calcualte the bounding box of the states
 
-  let initialViewState = useMemo(() => {
+  // Initialize the initial view state
+  const initialViewState = useMemo(() => {
     const [minLng, minLat, maxLng, maxLat] = bbox(statesGeoJson);
     const sw = new mapboxgl.LngLat(minLng, minLat);
     const ne = new mapboxgl.LngLat(maxLng, maxLat);
@@ -57,7 +58,6 @@ export default function Home(
     return {
       bounds: llb,
       fitBoundsOptions: {
-        offset: [0, 0],
         padding: 20
       },
       //projection: 'globe'
