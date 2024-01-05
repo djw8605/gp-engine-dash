@@ -48,7 +48,7 @@ export default function Layout({
                   </Link>
                 </li>
                 <li>
-                  <a href="https://github.com/MU-HPDI/gp-engine-tutorials" className="block mt-4 lg:inline-block lg:mt-0 text-white link-underline mr-4">
+                  <a href="https://docs.gp-engine.org" className="block mt-4 lg:inline-block lg:mt-0 text-white link-underline mr-4">
                     Docs
                   </a>
                 </li>

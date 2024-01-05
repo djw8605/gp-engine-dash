@@ -22,7 +22,7 @@ export default function About({ teamMembers }: { teamMembers: TeamMember[] }) {
         <section className="mx-auto py-4 bg-gray-100">
           <div className='container mx-auto'>
             <h1 className='text-4xl py-4 font-bold'>Meet The Team</h1>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-2">
               {teamMembers.map((member) => (
                 <div className="flex gap-8 items-center rounded bg-white p-6">
                   <img src={member.image} alt={member.name} className="rounded-full object-scale-down w-32 h-32" />
