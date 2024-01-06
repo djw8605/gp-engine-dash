@@ -32,7 +32,7 @@ export default function Layout({
       </Head>
       <div className="">
         <nav className="py-5 bg-green-900">
-          <div className="container flex flex-wrap justify-between items-center mx-auto">
+          <div className="container flex flex-wrap justify-between items-center mx-auto p-1">
             <a href="/" className="flex items-center">
               <span className="self-center text-xl font-semibold whitespace-nowrap text-white">GP-ENGINE</span>
             </a>

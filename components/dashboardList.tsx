@@ -34,10 +34,10 @@ export default function DashboardList({ sites }: { sites: Site[] }) {
 
   return (
     <>
-      <div className='bg-gray-100 pt-4 pb-4'>
+      <div className='bg-gray-100 py-4'>
         <div className='container mx-auto'>
-          <h1 className='text-xl p-4 text-center font-bold'>Site Dashboards</h1>
-          <div className='grid lg:grid-cols-4 lg:grid-rows-3 md:grid-cols-2 md:grid-rows-7 grid-cols-1 gap-4'>
+          <h1 className='text-xl p-4 text-center font-bold p-1'>Site Dashboards</h1>
+          <div className='grid lg:grid-cols-4 lg:grid-rows-3 md:grid-cols-2 grid-cols-1 gap-4 p-1'>
             {sortedSites.map((site) => (
               <SiteDashboardButton site={site} key={site.name} />
             ))}
