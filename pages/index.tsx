@@ -8,11 +8,7 @@ import { getStates, getSites, Site } from '../lib/states';
 import type { FillLayer, LineLayer, MapRef } from 'react-map-gl';
 import bbox from '@turf/bbox';
 import DashboardList from '../components/dashboardList';
-
-
-const sw = new mapboxgl.LngLat(-73.9876, 40.7661);
-const ne = new mapboxgl.LngLat(-73.9397, 40.8002);
-const llb = new mapboxgl.LngLatBounds(sw, ne);
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export default function Home(
   { statesGeoJson, sites }: { statesGeoJson: GeoJSON.FeatureCollection, sites: Site[] }
@@ -81,9 +77,6 @@ export default function Home(
   const [popupInfo, setPopupInfo] = useState<Site | null>(null);
   const pins = useMemo(() => {
     return sites.map((site) => {
-      console.log("Site: " + site.name);
-      console.log("Lat: " + site.lat);
-      console.log("Log: " + site.log);
       return (
         <Marker key={site.name}
           longitude={site.log}
@@ -137,12 +130,15 @@ export default function Home(
       </Head>
       <Layout home>
         <section className='w-full flex relative py-4' ref={mapSectionContainer}>
-          <div className='container mx-auto lg:grid lg:grid-cols-5 lg:gap-4 z-10'>
-            <div className='hero-text text-green-800 bg-opacity-80 bg-white col-span-2'>
-              <h1 className='text-3xl font-bold'>Great Plains Extended Network of GPUs for Interactive Experimenters</h1>
-              <p className='text-xl pt-4'>Welcome to the GP-ENGINE Dashboard</p>
+          <div className='container mx-auto lg:grid lg:grid-cols-4 lg:gap-4 z-10'>
+            <div className='hero-text bg-opacity-80 bg-white col-span-2'>
+              <h1 className='text-3xl font-bold text-green-800'>Great Plains Extended Network of GPUs for Interactive Experimenters</h1>
+              <p className='pt-4'>The GP-ENGINE project advances the adoption of advanced computing and data resources in the Great Plains Network region. This project will increase the number of researchers and students served by both local and national computing resources, strengthen the capacity and capabilities of campus research computing professionals, and expand the regional capacity for research.</p>
+              <div className='text-white bg-green-800 rounded-lg mt-4 w-fit'>
+                <a href="https://docs.gp-engine.org" className='flex items-center gap-2 h-full w-full p-2'>View Docs <ArrowRightIcon className='text-base h-7 w-7' /></a>
+              </div>
             </div>
-            <div ref={mapContainer} className='map-container lg:min-h-[30em] min-h-[10em] w-full h-full col-span-3 rounded-xl drop-shadow-md'>
+            <div ref={mapContainer} className='map-container lg:min-h-[30em] min-h-[10em] w-full h-full col-span-2 rounded-xl drop-shadow-md'>
               <Map
                 ref={mapRef}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}

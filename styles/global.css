@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.close-in-map-marker::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 0;
+  height: 0;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
+  border-top: 1em solid #ffffff;
+}
+
 /*
 html,
 body {

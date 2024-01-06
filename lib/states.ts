@@ -1,6 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
+export interface Node {
+  hostname: string;
+  active: boolean;
+  tags: string[];
+}
+
 // Export the sites type
 export interface Site {
   name: string;
@@ -8,12 +14,14 @@ export interface Site {
   log: number;
   logo: string;
   url: string;
-  hostname: string;
+  nodes: Node[];
   dashboard: string;
   active: boolean;
   state: string;
   city: string;
 }
+
+
 
 export function getStates() {
 

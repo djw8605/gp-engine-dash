@@ -10,7 +10,23 @@
             "dashboard": "https://unl.gp-argo.greatplains.net/dashboard",
             "active": true,
             "city": "Lincoln",
-            "state": "Nebraska"
+            "state": "Nebraska",
+            "nodes": [
+                {
+                    "hostname": "hcc-gpengine-shor-c5303.unl.edu",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ]
+                },
+                {
+                    "hostname": "hcc-gpn-argo-1.unl.edu",
+                    "active": false,
+                    "tags": [
+                        "gp-argo"
+                    ]
+                }
+            ]
         },
         {
             "name": "University of South Dakota",
@@ -30,7 +46,17 @@
             "log": -96.58472490196472,
             "hostname": "ksu.gp-argo.greatplains.net",
             "city": "Manhattan",
-            "state": "Kansas"
+            "state": "Kansas",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "gp-engine.beocat.ksu.edu",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ]
+                }
+            ]
         },
         {
             "name": "University of Kansas",
@@ -100,7 +126,17 @@
             "log": -92.32155820134282,
             "hostname": "mizzou.gp-argo.greatplains.net",
             "city": "Columbia",
-            "state": "Missouri"
+            "state": "Missouri",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "gpn-fiona-mizzou-5.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ]
+                }
+            ]
         },
         {
             "name": "University of Tulsa",
