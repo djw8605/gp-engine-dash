@@ -8,18 +8,39 @@ import CloseSiteMap from '../components/closeSiteMap';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
 
 
+function NodeInfoDetail({ title, value }: { title: string, value: string | number }) {
+  return (
+    <>
+      <div className='flex flex-row gap-1'>
+        <div className='text-sm font-bold'>{title}:</div>
+        <div className='text-sm'>{value}</div>
+      </div>
+    </>
+  )
+}
+
 function NodeSummaryStatus({ node }: { node: Node }) {
 
   return (
     <>
       <div className='bg-slate-100 rounded-xl p-4 flex items-center gap-2'>
         <div className='flex items-center gap-2'>
-          {node.active ? <CheckCircleIcon className='text-green-600 h-6 w-6' /> : <XCircleIcon className='text-red-600 h-6 w-6' />}
-          <div className='text-sm'>{node.hostname}</div>
-          <div className='flex'>
-            {node.tags && node.tags.map((tag) => (
-              <div className=' bg-slate-600 text-white rounded-lg p-1 text-xs'>{tag}</div>
-            ))}
+          {node.active ? <CheckCircleIcon className='text-green-600 h-10 w-10' /> : <XCircleIcon className='text-red-600 h-10 w-10' />}
+          <div className='flex flex-col gap-1'>
+            <div className='flex flex-row items-center gap-2'>
+              <div className='text-sm'>{node.hostname}</div>
+              <div className='flex'>
+                {node.tags && node.tags.map((tag) => (
+                  <div className=' bg-slate-600 text-white rounded-lg p-1 text-xs'>{tag}</div>
+                ))}
+              </div>
+            </div>
+            <div className='flex flex-wrap gap-2'>
+              <NodeInfoDetail title='CPUs' value={node.cpus} />
+              <NodeInfoDetail title='Memory' value={`${node.memory} GB`} />
+              <NodeInfoDetail title='GPUs' value={node.gpus} />
+              <NodeInfoDetail title='GPU Model' value={node.gpuModel} />
+            </div>
           </div>
         </div>
       </div>
@@ -94,6 +115,11 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
             </div>
 
 
+          </div>
+        </section>
+        <section className='w-full bg-gray-100 py-4'>
+          <div className='container mx-auto'>
+            <h1 className='text-3xl font-bold text-center'>Site Metrics</h1>
           </div>
         </section>
       </Layout >

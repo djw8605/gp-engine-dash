@@ -17,14 +17,22 @@
                     "active": true,
                     "tags": [
                         "gp-engine"
-                    ]
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
                 },
                 {
                     "hostname": "hcc-gpn-argo-1.unl.edu",
                     "active": false,
                     "tags": [
                         "gp-argo"
-                    ]
+                    ],
+                    "cpus": 128,
+                    "gpus": 1,
+                    "memory": 512,
+                    "gpuModel": "NVIDIA A100 40GB"
                 }
             ]
         },
@@ -54,7 +62,11 @@
                     "active": true,
                     "tags": [
                         "gp-engine"
-                    ]
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
                 }
             ]
         },
@@ -134,7 +146,11 @@
                     "active": true,
                     "tags": [
                         "gp-engine"
-                    ]
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
                 }
             ]
         },

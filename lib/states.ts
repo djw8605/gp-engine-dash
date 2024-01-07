@@ -5,6 +5,10 @@ export interface Node {
   hostname: string;
   active: boolean;
   tags: string[];
+  cpus: number;
+  memory: number; // In GBs
+  gpus: number;
+  gpuModel: string;
 }
 
 // Export the sites type
