@@ -54,18 +54,18 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
     <>
       <Layout>
         <section className='w-full flex py-4'>
-          <div className='container mx-auto lg:grid lg:grid-cols-4 lg:gap-4'>
+          <div className='container mx-auto grid lg:grid-cols-4 lg:gap-4 p-1'>
             <div className='hero-text col-span-2'>
               <div className="flex items-center gap-2 py-4">
                 <img src={site.logo} alt={site.name} className='object-scale-down h-10 w-10' />
                 <h1 className='text-3xl font-bold text-green-800'>{site?.name}</h1>
               </div>
-              <div className='lg:grid lg:grid-cols-1 gap-4'>
+              <div className='grid lg:grid-cols-1 gap-2'>
                 {site.nodes.map((node) => (
                   <NodeSummaryStatus node={node} key={node.hostname} />
                 ))}
                 <div className='flex flex-col gap-1'>
-                  <div className='text-xl pt-4 font-bold'>
+                  <div className='text-xl font-bold'>
                     Legend
                   </div>
                   <div className='flex items-center gap-2'>
