@@ -101,6 +101,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (site) {
       var usage = await getUsage(nodes);
       console.log("In handler" + usage);
+      res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate')
       res.status(200).json(usage);
     } else {
       // Return a 404
