@@ -6,6 +6,7 @@ import type { Site, Node } from '../lib/states'
 import { useSearchParams } from 'next/navigation'
 import CloseSiteMap from '../components/closeSiteMap';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
+import SiteMetrics from '../components/siteMetrics';
 
 
 function NodeInfoDetail({ title, value }: { title: string, value: string | number }) {
@@ -28,10 +29,10 @@ function NodeSummaryStatus({ node }: { node: Node }) {
           {node.active ? <CheckCircleIcon className='text-green-600 h-10 w-10' /> : <XCircleIcon className='text-red-600 h-10 w-10' />}
           <div className='flex flex-col gap-1'>
             <div className='flex flex-row items-center gap-2'>
-              <div className='text-sm'>{node.hostname}</div>
+              <div className='font-bold'>{node.hostname}</div>
               <div className='flex'>
                 {node.tags && node.tags.map((tag) => (
-                  <div className=' bg-slate-600 text-white rounded-lg p-1 text-xs'>{tag}</div>
+                  <div className='bg-slate-600 text-white rounded-lg p-1 text-xs' key={tag}>{tag}</div>
                 ))}
               </div>
             </div>
@@ -119,8 +120,8 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
         </section>
         <section className='w-full bg-gray-100 py-4'>
           <div className='container mx-auto'>
-            <h1 className='text-3xl font-bold text-center'>Site Metrics</h1>
-          </div>
+            <SiteMetrics site={site} />
+            </div>
         </section>
       </Layout >
     </>

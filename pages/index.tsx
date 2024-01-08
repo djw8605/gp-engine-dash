@@ -9,6 +9,7 @@ import type { FillLayer, LineLayer, MapRef } from 'react-map-gl';
 import bbox from '@turf/bbox';
 import DashboardList from '../components/dashboardList';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import SiteSummaryStats from '../components/siteSummaryStats';
 
 export default function Home(
   { statesGeoJson, sites }: { statesGeoJson: GeoJSON.FeatureCollection, sites: Site[] }
@@ -134,9 +135,11 @@ export default function Home(
             <div className='hero-text bg-opacity-80 bg-white col-span-2 py-2'>
               <h1 className='text-3xl font-bold text-green-800'>Great Plains Extended Network of GPUs for Interactive Experimenters</h1>
               <p className='pt-4'>The GP-ENGINE project advances the adoption of advanced computing and data resources in the Great Plains Network region. This project will increase the number of researchers and students served by both local and national computing resources, strengthen the capacity and capabilities of campus research computing professionals, and expand the regional capacity for research.</p>
-              <div className='text-white bg-green-800 rounded-lg mt-4 w-fit'>
+              <div className='text-white bg-green-800 rounded-lg my-4 w-fit'>
                 <a href="https://docs.gp-engine.org" className='flex items-center gap-2 h-full w-full p-2'>View Docs <ArrowRightIcon className='text-base h-7 w-7' /></a>
               </div>
+
+              <SiteSummaryStats sites={sites} />
             </div>
             <div ref={mapContainer} className='map-container lg:min-h-[30em] min-h-[20em] w-full h-full col-span-2 rounded-xl drop-shadow-md'>
               <Map
