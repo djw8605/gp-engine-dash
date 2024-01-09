@@ -10,6 +10,7 @@ import bbox from '@turf/bbox';
 import DashboardList from '../components/dashboardList';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import SiteSummaryStats from '../components/siteSummaryStats';
+import SummaryStats from '../components/summaryStats';
 
 export default function Home(
   { statesGeoJson, sites }: { statesGeoJson: GeoJSON.FeatureCollection, sites: Site[] }
@@ -169,8 +170,13 @@ export default function Home(
               </Map>
             </div>
           </div>
-
+          
         </section >
+        <section>
+        <div className='container mx-auto'>
+            <SummaryStats sites={sites} />
+          </div>
+        </section>
         <section>
           <DashboardList sites={sites} />
         </section>
