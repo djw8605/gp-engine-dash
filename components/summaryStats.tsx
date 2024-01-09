@@ -65,8 +65,8 @@ export default function SummaryStats({ sites }: { sites: Site[] }) {
 
   return (
     <>
-      <div className='text-xl font-bold py-2'>Summary Statistics of last 30 days</div>
-      <div className="grid grid-flow-col gap-2 py-4">
+      <div className='text-xl font-bold p-2'>Summary Statistics of last 30 days</div>
+      <div className="grid grid-flow-auto lg:grid-cols-3 gap-2 p-2">
         <SummaryStat title='Research Groups Enabled' value={data ? data.length : null} icon={<UserGroupIcon />} bgColor="#754668" />
         <SummaryStat title='GPU Hours' value={totalGpuHours} icon={<ComputerDesktopIcon />} bgColor="#EE6C4D" />
         <SummaryStat title='CPU Hours' value={totalCpuHours} icon={<CpuChipIcon />} bgColor="#68805e" />
