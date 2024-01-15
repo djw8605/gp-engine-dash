@@ -39,6 +39,7 @@ function SummaryStat({ title, value, icon, bgColor }: { title: string, value: nu
             }
 
             <div className='text-sm'>{title}</div>
+            <div className="text-xs text-gray-200">Last 30 days</div>
           </div>
         </div>
       </div>
