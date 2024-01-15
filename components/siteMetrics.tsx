@@ -72,7 +72,7 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
     datasets: Array.from(namespaceLabels).map((n) => {
       return {
         label: n,
-        type: 'bar' as const,
+        type: 'bar' as "bar" | "line",
         data: data.map((d) => {
           let value = d.value.find((v) => v.namespace === n);
           if (value) {
@@ -134,7 +134,7 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
 
   return (
     <>
-      <Chart type='bar' data={chartData} options={config} />
+      <Chart type="bar" data={chartData} options={config} />
     </>
   )
 }
