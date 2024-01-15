@@ -1,27 +1,34 @@
 'use client'
-import { Chart } from "chart.js";
 import type { Site } from "../lib/states";
 import useSWR from 'swr'
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  PointElement,
+  LineElement,
   BarElement,
   Title,
   Tooltip,
   Legend,
-  Colors
+  Colors,
+  LineController,
+  BarController
 } from 'chart.js';
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
-  Colors
+  Colors,
+  LineController,
+  BarController
 );
-import { Bar } from "react-chartjs-2";
+import { Bar, Chart } from "react-chartjs-2";
 
 
 // Define the fetcher function
@@ -35,7 +42,7 @@ type NodeMetrics = {
   }[]
 }
 
-function NodeChart({ data, title }: { data: NodeMetrics[], title: string }) {
+function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, site: Site }) {
 
   if (data == null) {
     return (
@@ -65,6 +72,7 @@ function NodeChart({ data, title }: { data: NodeMetrics[], title: string }) {
     datasets: Array.from(namespaceLabels).map((n) => {
       return {
         label: n,
+        type: 'bar',
         data: data.map((d) => {
           let value = d.value.find((v) => v.namespace === n);
           if (value) {
@@ -77,6 +85,34 @@ function NodeChart({ data, title }: { data: NodeMetrics[], title: string }) {
     })
   }
 
+  // Create a dataset for a line for the maximum expected number of gpus, to show utilization
+
+  // Calculate the sum of gpus for the site
+  let totalGpus = 0;
+  site.nodes.forEach((node) => {
+    if (node.active)
+      totalGpus += node.gpus;
+  });
+
+  totalGpus = totalGpus * 24;
+
+  // Create a dataset for the line
+  const lineData = {
+    label: 'Max GPUs',
+    type: 'line',
+    data: data.map((d) => totalGpus),
+    //borderColor: 'red',
+    fill: false,
+    borderWidth: 2,
+    pointRadius: 0,
+    pointHoverRadius: 0,
+    pointHitRadius: 0,
+  }
+
+  // Add it to the chartData
+  chartData.datasets.push(lineData);
+
+
   console.log(chartData);
   const config = {
     plugins: {
@@ -84,6 +120,9 @@ function NodeChart({ data, title }: { data: NodeMetrics[], title: string }) {
         display: true,
         text: title,
       },
+      colors: {
+        forcedOverride: true,
+      }
     },
     responsive: true,
     scales: {
@@ -98,7 +137,7 @@ function NodeChart({ data, title }: { data: NodeMetrics[], title: string }) {
 
   return (
     <>
-      <Bar data={chartData} options={config} />
+      <Chart type='bar' data={chartData} options={config} />
     </>
   )
 }
@@ -116,7 +155,7 @@ export default function SiteMetrics({ site }: { site: Site }) {
 
   return (
     <div className='bg-gray-100 py-4'>
-      <NodeChart data={data} title="GPU Hours for last 30 days by namespace" />
+      <NodeChart data={data} title="GPU Hours for last 30 days by namespace" site={site} />
     </div>
   )
 
