@@ -72,7 +72,7 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
     datasets: Array.from(namespaceLabels).map((n) => {
       return {
         label: n,
-        type: 'bar',
+        type: 'bar' as const,
         data: data.map((d) => {
           let value = d.value.find((v) => v.namespace === n);
           if (value) {
@@ -99,7 +99,7 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
   // Create a dataset for the line
   const lineData = {
     label: 'Max GPUs',
-    type: 'line',
+    type: 'line' as const,
     data: data.map((d) => totalGpus),
     //borderColor: 'red',
     fill: false,
@@ -119,9 +119,6 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
       title: {
         display: true,
         text: title,
-      },
-      colors: {
-        forcedOverride: true,
       }
     },
     responsive: true,
