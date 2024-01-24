@@ -20,7 +20,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 function SummaryStat({ title, value, icon, bgColor }: { title: string, value: number | null, icon?: any, bgColor?: string }) {
   return (
     <>
-      <div className={`${!bgColor ? "bg-slate-100" : ""} rounded-xl p-4 py-6 flex text-white w-full`}
+      <div className={`${!bgColor ? "bg-slate-100" : ""} rounded-sm p-4 py-6 flex text-white w-full`}
         style={{ backgroundColor: bgColor as string }}>
         <div className="flex lg:gap-8 gap-4 items-center w-full">
           {icon && <span className='text-gray-200 h-[5em] w-[7em]'>{icon}</span>}

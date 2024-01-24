@@ -151,7 +151,7 @@ export default function SiteMetrics({ site }: { site: Site }) {
   console.log(data);
 
   return (
-    <div className='bg-gray-100 py-4'>
+    <div className='bg-gray-100 py-4 lg:min-h-[40em]'>
       <NodeChart data={data} title="GPU Hours for last 30 days by namespace" site={site} />
     </div>
   )

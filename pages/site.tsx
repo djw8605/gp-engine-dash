@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import CloseSiteMap from '../components/closeSiteMap';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import SiteMetrics from '../components/siteMetrics';
+import NamespaceTable from '../components/namespaceTable';
 
 
 function NodeInfoDetail({ title, value }: { title: string, value: string | number }) {
@@ -24,7 +25,7 @@ function NodeSummaryStatus({ node }: { node: Node }) {
 
   return (
     <>
-      <div className='bg-slate-100 rounded-xl p-4 flex items-center gap-2'>
+      <div className='bg-slate-100 p-4 flex items-center gap-2'>
         <div className='flex items-center gap-2'>
           {node.active ? <CheckCircleIcon className='text-green-600 h-10 w-10' /> : <XCircleIcon className='text-red-600 h-10 w-10' />}
           <div className='flex flex-col gap-1'>
@@ -32,7 +33,7 @@ function NodeSummaryStatus({ node }: { node: Node }) {
               <div className='font-bold'>{node.hostname}</div>
               <div className='flex'>
                 {node.tags && node.tags.map((tag) => (
-                  <div className='bg-slate-600 text-white rounded-lg p-1 text-xs' key={tag}>{tag}</div>
+                  <div className='bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300' key={tag}>{tag}</div>
                 ))}
               </div>
             </div>
@@ -97,11 +98,11 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
                     <XCircleIcon className='text-red-600 h-6 w-6' /> = Inactive
                   </div>
                   <div className='flex items-center gap-2'>
-                    <div className=' bg-slate-600 text-white rounded-lg p-1 text-xs'>gp-engine</div> = purchased by GP-ENGINE
+                    <div className=' bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>gp-engine</div> = purchased by GP-ENGINE
                   </div>
                   <div className='flex items-center gap-2'>
                     <div>
-                      <div className=' bg-slate-600 text-white rounded-lg p-1 text-xs'>gp-argo</div>
+                      <div className=' bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>gp-argo</div>
                     </div>
                     <div> = purchased by <a className='underline' href="https://gp-argo.greatplains.net/">GP-ARGO</a>
                     </div>
@@ -120,8 +121,15 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
         </section>
         <section className='w-full bg-gray-100 py-4'>
           <div className='container mx-auto'>
-            <SiteMetrics site={site} />
+            <div className='grid lg:grid-cols-5 gap-2'>
+              <div className='col-span-3'>
+                <SiteMetrics site={site} />
+              </div>
+              <div className='col-span-2'>
+                <NamespaceTable sites={[site]} />
+              </div>
             </div>
+          </div>
         </section>
       </Layout >
     </>

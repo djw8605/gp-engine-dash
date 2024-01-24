@@ -9,7 +9,7 @@ function SiteDashboardButton({ site }: { site: Site }) {
       <Link href={{
         pathname: `${site.active ? '/site' : ''}`,
         query: site.active ? { site: site.name } : {}
-      }}  className={'bg-white rounded-xl p-4 flex content-center ' +
+      }}  className={'bg-white p-4 flex content-center drop-shadow-md ' +
       (site.active ? 'border-green-600 border-4 transform transition hover:scale-105' : 'hover:cursor-default')}>
         <div className='flex items-center gap-2'>
           <img src={site.logo} alt={site.name} className='object-scale-down h-12 w-12' />
