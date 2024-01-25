@@ -8,6 +8,7 @@ import CloseSiteMap from '../components/closeSiteMap';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import SiteMetrics from '../components/siteMetrics';
 import NamespaceTable from '../components/namespaceTable';
+import { useState } from 'react';
 
 
 function NodeInfoDetail({ title, value }: { title: string, value: string | number }) {
@@ -56,6 +57,10 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
   const searchParams = useSearchParams();
   const siteName = searchParams.get('site');
   const site = sites.find((site) => site.name === siteName);
+
+  // useState selected namespace state
+  const [selectedNamespace, setSelectedNamespace] = useState<string | null>(null);
+
   if (!site) {
     return (
       <>
@@ -123,10 +128,10 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
           <div className='container mx-auto'>
             <div className='grid lg:grid-cols-5 gap-2'>
               <div className='col-span-3'>
-                <SiteMetrics site={site} />
+                <SiteMetrics site={site} setSelectedNamespace={setSelectedNamespace} />
               </div>
               <div className='col-span-2'>
-                <NamespaceTable sites={[site]} />
+                <NamespaceTable sites={[site]} selectedNamespace={selectedNamespace} />
               </div>
             </div>
           </div>

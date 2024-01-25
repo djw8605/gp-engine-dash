@@ -42,7 +42,7 @@ type NodeMetrics = {
   }[]
 }
 
-function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, site: Site }) {
+function NodeChart({ data, title, site, setSelectedNamespace }: { data: NodeMetrics[], title: string, site: Site, setSelectedNamespace: (namespace: string | null) => void}) {
 
   if (data == null) {
     return (
@@ -113,7 +113,7 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
   chartData.datasets.push(lineData);
 
 
-  console.log(chartData);
+  //console.log(chartData);
   const config = {
     plugins: {
       title: {
@@ -129,6 +129,13 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
       y: {
         stacked: true
       }
+    },
+    onHover: function (e: any, elements: any, chart: any) {
+      if (elements.length > 0) {
+        setSelectedNamespace(chartData.datasets[elements[0].datasetIndex].label);
+      } else {
+        setSelectedNamespace(null);
+      }
     }
   }
 
@@ -139,7 +146,7 @@ function NodeChart({ data, title, site }: { data: NodeMetrics[], title: string, 
   )
 }
 
-export default function SiteMetrics({ site }: { site: Site }) {
+export default function SiteMetrics({ site, setSelectedNamespace }: { site: Site, setSelectedNamespace: (namespace: string | null) => void}) {
   // Get the prometheus metrics for the site
 
   // Query the API to get the cpu metrics
@@ -148,11 +155,11 @@ export default function SiteMetrics({ site }: { site: Site }) {
 
   // Query the API to get the gpu metrics
   const { data, error } = useSWR(`/api/nodeMetrics?site=${site.name}&metric=gpu`, fetcher);
-  console.log(data);
+  //console.log(data);
 
   return (
     <div className='bg-gray-100 py-4 lg:min-h-[40em]'>
-      <NodeChart data={data} title="GPU Hours for last 30 days by namespace" site={site} />
+      <NodeChart data={data} title="GPU Hours for last 30 days by namespace" site={site} setSelectedNamespace={setSelectedNamespace} />
     </div>
   )
 

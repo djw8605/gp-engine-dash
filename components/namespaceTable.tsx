@@ -16,7 +16,7 @@ type Namespace = {
 // Default fetcher
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export default function NamespaceTable({ sites }: { sites: Site[] }) {
+export default function NamespaceTable({ sites, selectedNamespace }: { sites: Site[], selectedNamespace: string | null }) {
 
   // Calculate the name of all the nodes
   const nodes = sites.map((site) => site.nodes ? site.nodes.map((node) => node.hostname) : null).flat();
@@ -90,6 +90,9 @@ export default function NamespaceTable({ sites }: { sites: Site[] }) {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  if (selectedNamespace) {
+    console.log("selected namespace = " + selectedNamespace);
+  }
 
   return (
     <>
@@ -112,15 +115,23 @@ export default function NamespaceTable({ sites }: { sites: Site[] }) {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map(row => (
-              <tr key={row.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id} className='px-2 py-1'>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {table.getRowModel().rows.map(row => {
+              //console.log(row.getValue('name'));
+              let selectedRow = false;
+              if (row.getValue('name') === selectedNamespace) {
+                //console.log("selected row = " + row.getValue('name'));
+                selectedRow = true;
+              }
+              return (
+                <tr key={row.id} className={'border-b dark:border-gray-700 ' + (selectedRow ? 'bg-blue-100' : 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800')}>
+                  {row.getVisibleCells().map(cell => (
+                    <td key={cell.id} className='px-2 py-1'>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
