@@ -151,6 +151,17 @@
                     "gpus": 4,
                     "memory": 1024,
                     "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-6.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
                 }
             ]
         },
