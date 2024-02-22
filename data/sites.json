@@ -108,7 +108,21 @@
             "log": -92.32434264525463,
             "hostname": "uams.gp-argo.greatplains.net",
             "city": "Little Rock",
-            "state": "Arkansas"
+            "state": "Arkansas",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "gpengine-uams.areon.net",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                }
+            ]
         },
         {
             "name": "University of Arkansas",
