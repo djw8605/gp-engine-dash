@@ -118,7 +118,21 @@
             "log": -94.16798375298457,
             "hostname": "uark.gp-argo.greatplains.net",
             "city": "Fayetteville",
-            "state": "Arkansas"
+            "state": "Arkansas",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "gpengine-uark.areon.net",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                }
+            ]
         },
         {
             "name": "Missouri S&T",
