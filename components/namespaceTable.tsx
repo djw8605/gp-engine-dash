@@ -20,7 +20,13 @@ export default function NamespaceTable({ sites, selectedNamespace }: { sites: Si
 
   // Calculate the name of all the nodes
   const nodes = sites.map((site) => site.nodes ? site.nodes.map((node) => node.hostname) : null).flat();
-  const { data, error } = useSWR(`/api/summaryStats?metric=gpu`, fetcher);
+  // Get the name of all the sites
+  const siteNames = sites.map((site) => site.name);
+
+  // Send all of the nodes to the API to get the summary stats
+  const urlSiteNames = siteNames.map((siteName) => `site=${siteName}`).join('&');
+  const { data, error } = useSWR(`/api/summaryStats?metric=gpu&${urlSiteNames}`, fetcher);
+  //const { data, error } = useSWR(`/api/summaryStats?metric=gpu`, fetcher);
 
   // Data now includes the list of namespaces:
 
