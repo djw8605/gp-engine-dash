@@ -170,6 +170,50 @@
             "active": true,
             "nodes": [
                 {
+                    "hostname": "gpn-fiona-mizzou-1.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-2.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-3.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-4.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
                     "hostname": "gpn-fiona-mizzou-5.rnet.missouri.edu",
                     "active": true,
                     "tags": [
@@ -190,6 +234,39 @@
                     "gpus": 4,
                     "memory": 1024,
                     "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-7.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 80,
+                    "gpus": 2,
+                    "memory": 400,
+                    "gpuModel": "Tesla V100 16GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-8.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 80,
+                    "gpus": 2,
+                    "memory": 400,
+                    "gpuModel": "Tesla V100 16GB"
+                },
+                {
+                    "hostname": "gpn-fiona-mizzou-9.rnet.missouri.edu",
+                    "active": true,
+                    "tags": [
+                        "other-usg"
+                    ],
+                    "cpus": 80,
+                    "gpus": 2,
+                    "memory": 400,
+                    "gpuModel": "Tesla V100 16GB"
                 }
             ]
         },
