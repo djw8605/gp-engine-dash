@@ -112,6 +112,9 @@ export default function SiteDetail({ sites }: { sites: Site[] }) {
                     <div> = purchased by <a className='underline' href="https://gp-argo.greatplains.net/">GP-ARGO</a>
                     </div>
                   </div>
+                  <div className='flex items-center gap-2'>
+                    <div className=' bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>other-usg</div> = purchased by other US Government agency
+                  </div>
                 </div>
               </div>
               <p className='text-xl pt-4'></p>
