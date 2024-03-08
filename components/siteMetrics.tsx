@@ -122,6 +122,7 @@ function NodeChart({ data, title, site, setSelectedNamespace }: { data: NodeMetr
       }
     },
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         stacked: true,
