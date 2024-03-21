@@ -17,7 +17,7 @@ Burnt orange: #EE6C4D
 // Define the fetcher function
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-function SummaryStat({ title, value, icon, bgColor }: { title: string, value: number | null, icon?: any, bgColor?: string }) {
+function SummaryStat({ title, value, icon, bgColor, error }: { title: string, value: number | null, icon?: any, bgColor?: string, error: string }) {
   return (
     <>
       <div className={`${!bgColor ? "bg-slate-100" : ""} rounded-sm p-4 py-6 flex text-white w-full`}
@@ -27,7 +27,9 @@ function SummaryStat({ title, value, icon, bgColor }: { title: string, value: nu
           <div className='flex flex-col gap-1 w-full'>
             {value ? (
               <div className='text-4xl font-bold w-full'>{value && Math.round(value).toLocaleString()}
-              </div>) :
+              </div>) : error ? (
+                <div className='text-4xl font-bold w-full'>Error, please refresh</div>
+              ) : 
               (
                 <div className="flex gap-2 items-center">
                   <div>
@@ -39,7 +41,7 @@ function SummaryStat({ title, value, icon, bgColor }: { title: string, value: nu
             }
 
             <div className='text-sm'>{title}</div>
-            <div className="text-xs text-gray-200">Last 30 days</div>
+            <div className="text-xs text-gray-200">Since October 1, 2023</div>
           </div>
         </div>
       </div>
@@ -66,11 +68,11 @@ export default function SummaryStats({ sites }: { sites: Site[] }) {
 
   return (
     <>
-      <div className='text-xl font-bold p-2'>Summary Statistics of last 30 days</div>
+      <div className='text-xl font-bold p-2'>Summary Statistics since Oct 1, 2023</div>
       <div className="grid grid-flow-auto lg:grid-cols-3 gap-2 p-2">
-        <SummaryStat title='Research Groups Enabled' value={data ? data.length : null} icon={<UserGroupIcon />} bgColor="#754668" />
-        <SummaryStat title='GPU Hours' value={totalGpuHours} icon={<ComputerDesktopIcon />} bgColor="#EE6C4D" />
-        <SummaryStat title='CPU Hours' value={totalCpuHours} icon={<CpuChipIcon />} bgColor="#68805e" />
+        <SummaryStat title='Research Groups Enabled' value={data ? data.length : null} icon={<UserGroupIcon />} bgColor="#754668" error={error} />
+        <SummaryStat title='GPU Hours' value={totalGpuHours} icon={<ComputerDesktopIcon />} bgColor="#EE6C4D" error={error} />
+        <SummaryStat title='CPU Hours' value={totalCpuHours} icon={<CpuChipIcon />} bgColor="#68805e" error={error2} />
       </div>
     </>
   )

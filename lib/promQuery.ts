@@ -71,21 +71,11 @@ export async function getUsage(nodes: string[]) {
 
 }
 
-
-
-export async function getSummaryStats(nodes: string[], metric: string) {
+async function queryProm(query: string, endTime: Date) {
   return new Promise<Object>((resolve, reject) => {
-
-    // Create dates for start and end times, endtime is now, starttime is 1 month ago
-    const endTime = new Date();
-    const endEpoch = endTime.getTime();
-
     // Join the nodes into a string
-    const queryNodes = nodes.join('|');
-    const query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]))`;
-
     // Log the query
-    console.log(query);
+    //console.log(query);
     prom.instantQuery(
       query,
       endTime
@@ -105,6 +95,49 @@ export async function getSummaryStats(nodes: string[], metric: string) {
       resolve(groupedArray);
     });
   });
+}
+
+export async function getSummaryStats(nodes: string[], metric: string, range: number = 30) {
+
+    // Create dates for start and end times, endtime is now, starttime is 1 month ago
+    const queryNodes = nodes.join('|');
+    let query: string;
+    // If the range is larger than 30, make 30 day steps and do a sum at the end
+    let results: any[] = [];
+    let startEpoch = new Date('2023-10-01').getTime() / 1000;
+    let endEpoch = startEpoch + 30 * 24 * 3600;
+    while (endEpoch < new Date().getTime() / 1000) {
+      query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]@${startEpoch}))`;
+      let result = await queryProm(query, new Date(endEpoch));
+      results.push(result);
+      startEpoch = endEpoch;
+      endEpoch = startEpoch + 30 * 24 * 3600;
+    }
+    query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]@${startEpoch}))`;
+    let result = await queryProm(query, new Date(endEpoch));
+    results.push(result);
+    
+    var namespace_results: Map<string, number> = new Map();
+    // Loop through the results array 
+
+    results.forEach( (element) => {
+      element.forEach ( (namespace_value: {namespace: string, value: number}) => {
+        let cur_value = namespace_results.get(namespace_value.namespace);
+        if (cur_value == undefined) {
+          cur_value = 0;
+        }
+        namespace_results.set(namespace_value.namespace, cur_value + namespace_value.value)
+      });
+    });
+
+    // Convert the map to an array of key and values objects:
+    let to_return = Array<{namespace: string, value: number}>();
+    namespace_results.forEach((value, namespace) => {
+      console.log([namespace, value]);
+      to_return.push({namespace: namespace, value: value})
+    })
+    return to_return;
+
 
 
 }
