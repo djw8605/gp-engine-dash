@@ -72,24 +72,23 @@ export async function getUsage(nodes: string[]) {
 }
 
 async function queryProm(query: string, endTime: Date) {
-  return new Promise<Object>((resolve, reject) => {
+  return new Promise<{namespace: string, value: number}[]>((resolve, reject) => {
     // Join the nodes into a string
     // Log the query
     //console.log(query);
+    //console.log(endTime);
     prom.instantQuery(
-      query,
-      endTime
+      query
     ).then((result: QueryResult) => {
-
       // Loop through the result, returning a map of namespace to value
       let namespaceValues = new Map<string, number>();
       result.result.forEach((r: InstantVector) => {
         if (!r.metric.labels || !(r.metric.labels as { namespace: string }).namespace) {
           return;
         }
-        namespaceValues.set((r.metric.labels as { namespace: string }).namespace, r.value.value);
+        let namespace_name = (r.metric.labels as { namespace: string }).namespace
+        namespaceValues.set(namespace_name, r.value.value);
       });
-
       // Convert from a map to an array of keys and values
       let groupedArray = Array.from(namespaceValues, ([namespace, value]) => ({ namespace, value }));
       resolve(groupedArray);
@@ -106,17 +105,40 @@ export async function getSummaryStats(nodes: string[], metric: string, range: nu
     let results: any[] = [];
     let startEpoch = new Date('2023-10-01').getTime() / 1000;
     let endEpoch = startEpoch + 30 * 24 * 3600;
-    while (endEpoch < new Date().getTime() / 1000) {
-      query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]@${startEpoch}))`;
+    while (startEpoch < new Date().getTime() / 1000) {
+      //console.log("Metric: " + metric + ", Querying between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000));
+      query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]@${endEpoch}))`;
       let result = await queryProm(query, new Date(endEpoch));
       results.push(result);
+      
+      /*
+      if (metric == "nvidia_com_gpu") {
+        // Add all of the gpu values together
+        let total = 0;
+        result.forEach ( (namespace_value: {namespace: string, value: number}) => {
+          total += namespace_value.value;
+        });
+        console.log("Between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000) + " Total: " + total);
+      }
+      */
+      
       startEpoch = endEpoch;
       endEpoch = startEpoch + 30 * 24 * 3600;
     }
+    //console.log("Metric: " + metric + ", Querying between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000));
+    /*
     query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]@${startEpoch}))`;
     let result = await queryProm(query, new Date(endEpoch));
     results.push(result);
-    
+    if (metric == "nvidia_com_gpu") {
+      // Add all of the gpu values together
+      let total = 0;
+      result.forEach ( (namespace_value: {namespace: string, value: number}) => {
+        total += namespace_value.value;
+      });
+      console.log("Between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000) + " Total: " + total);
+    }
+    */
     var namespace_results: Map<string, number> = new Map();
     // Loop through the results array 
 
@@ -130,10 +152,12 @@ export async function getSummaryStats(nodes: string[], metric: string, range: nu
       });
     });
 
+    //console.log(namespace_results);
+
     // Convert the map to an array of key and values objects:
     let to_return = Array<{namespace: string, value: number}>();
     namespace_results.forEach((value, namespace) => {
-      console.log([namespace, value]);
+      //console.log([namespace, value]);
       to_return.push({namespace: namespace, value: value})
     })
     return to_return;

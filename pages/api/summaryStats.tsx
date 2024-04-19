@@ -28,14 +28,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Calculate how many days since October 1, 2023
     // Get the now time in milliseconds
     const now = new Date().getTime();
+    //console.log("Now: " + now);
     // Get the time of October 1, 2023 in milliseconds
     const oct1 = new Date('2023-10-01').getTime();
     // Calculate the difference in milliseconds
     const diff = now - oct1;
+    //console.log("Diff: " + diff)
     // Convert the difference to days
     const days = diff / (1000 * 60 * 60 * 24);
+    //console.log("Days: " + days);
     // Convert days to an integer
     const daysInt = Math.floor(days);
+    //console.log("Days int: " + daysInt);
 
     // Check for the site name in the query
     if (req.query.site) {
@@ -79,8 +83,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // If the site exists
       if (nonNullNodes) {
         var usage = await getSummaryStats(nonNullNodes, correctedMetric, daysInt);
-        console.log("In handler for metric: " + correctedMetric + " Got: " + usage);
-        res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate')
+        //console.log("In handler for metric: " + correctedMetric + " Got: " + usage);
+        var totalGpuHours = usage.reduce((acc: number, d: { namespace: string, value: number }) => acc + d.value, 0);
+        //console.log("Total hours: " + totalGpuHours);
+        res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate');
         res.status(200).json(usage);
       } else {
         // Return a 404
