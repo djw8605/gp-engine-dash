@@ -89,6 +89,7 @@
             "hostname": "sdsu.gp-argo.greatplains.net",
             "city": "Brookings",
             "state": "South Dakota",
+            "active": true,
             "nodes": [
                 {
                     "hostname": "sphinx.sdstate.edu",
