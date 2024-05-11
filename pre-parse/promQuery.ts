@@ -155,11 +155,11 @@ export async function getSummaryStats(nodes: string[], startDate: Date) {
       //console.log(element);
       element.forEach ( (values, namespace) => {
         let cur_namespace = namespace_results.get(namespace);
-        if (!cur_namespace) {
-          cur_namespace = new Map<string, number>();
-          namespace_results.set(namespace, cur_namespace);
-        }
         values.forEach( (value, resource) => {
+          if (cur_namespace == undefined) {
+            cur_namespace = new Map<string, number>();
+            namespace_results.set(namespace, cur_namespace);
+          }
           let cur_value = cur_namespace.get(resource);
           if (cur_value == undefined) {
             cur_value = 0;
