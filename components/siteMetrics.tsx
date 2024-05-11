@@ -29,6 +29,7 @@ ChartJS.register(
   BarController
 );
 import { Bar, Chart } from "react-chartjs-2";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 
 // Define the fetcher function
@@ -42,12 +43,17 @@ type NodeMetrics = {
   }[]
 }
 
-function NodeChart({ data, title, site, setSelectedNamespace }: { data: NodeMetrics[], title: string, site: Site, setSelectedNamespace: (namespace: string | null) => void}) {
+function NodeChart({ data, title, site, setSelectedNamespace }: { data: NodeMetrics[], title: string, site: Site, setSelectedNamespace: (namespace: string | null) => void }) {
 
   if (data == null) {
     return (
       <>
-        <div>Loading...</div>
+        <div className="flex gap-2 items-center">
+          <div>
+            <ArrowPathIcon className='animate-spin h-6 w-6' />
+          </div>
+          <div className='text-4xl font-bold'>Loading...</div>
+        </div>
       </>
     )
   }
@@ -147,7 +153,7 @@ function NodeChart({ data, title, site, setSelectedNamespace }: { data: NodeMetr
   )
 }
 
-export default function SiteMetrics({ site, setSelectedNamespace }: { site: Site, setSelectedNamespace: (namespace: string | null) => void}) {
+export default function SiteMetrics({ site, setSelectedNamespace }: { site: Site, setSelectedNamespace: (namespace: string | null) => void }) {
   // Get the prometheus metrics for the site
 
   // Query the API to get the cpu metrics

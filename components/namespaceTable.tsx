@@ -25,7 +25,32 @@ export default function NamespaceTable({ sites, selectedNamespace }: { sites: Si
 
   // Send all of the nodes to the API to get the summary stats
   const urlSiteNames = siteNames.map((siteName) => `site=${siteName}`).join('&');
-  const { data, error } = useSWR(`/api/summaryStats?metric=gpu&${urlSiteNames}`, fetcher);
+  //const { data, error } = useSWR(`/api/summaryStats?metric=gpu&${urlSiteNames}`, fetcher);
+  const { data, error } = useSWR(`/api/nodeMetrics?site=${sites[0].name}&metric=gpu`, fetcher);
+  console.log("Node Metrics Data:");
+  console.log(data);
+  let gpuValues: { namespace: string, value: number }[] = [];
+
+  // Sum up all of the GPU hours for each namespace
+  if (data) {
+    let namespaceValue = new Map<string, number>();
+    data.forEach((d: { time: number, value: { namespace: string, value: number }[] }) => {
+      d.value.forEach((n) => {
+        if (namespaceValue.has(n.namespace)) {
+          let namespaceGpus = namespaceValue.get(n.namespace);
+          if (namespaceGpus) {
+            namespaceValue.set(n.namespace, namespaceGpus + n.value);
+          }
+        } else {
+          namespaceValue.set(n.namespace, n.value);
+        }
+      });
+    });
+
+    // Convert the map to an array of objects
+    gpuValues = Array.from(namespaceValue, ([namespace, value]) => ({ namespace, value }));
+  }
+
   //const { data, error } = useSWR(`/api/summaryStats?metric=gpu`, fetcher);
 
   // Data now includes the list of namespaces:
@@ -38,13 +63,12 @@ export default function NamespaceTable({ sites, selectedNamespace }: { sites: Si
   if (data && namespaceData && namespaceDataState.length === 0) {
     // Create an emtpy array of namespaces
     let namespaceDataArray: Namespace[] = [];
-    console.log(data);
-    console.log(namespaceData);
+    //console.log(data);
 
     // Match the namespaces with the data in the namespaceData
 
     // For each namespace in the data, find the matching namespace in namespaceData
-    data.forEach((d: { namespace: string, value: number }) => {
+    gpuValues.forEach((d: { namespace: string, value: number }) => {
 
       let namespaceMeta = namespaceData.values.Namespaces.find((n: { Name: string }) => n.Name === d.namespace);
 
@@ -64,9 +88,6 @@ export default function NamespaceTable({ sites, selectedNamespace }: { sites: Si
     setNamespaceData(namespaceDataArray);
   }
 
-  if (data) {
-    console.log(namespaceDataState);
-  }
 
   const columnHelper = createColumnHelper<Namespace>();
   const columns = [
