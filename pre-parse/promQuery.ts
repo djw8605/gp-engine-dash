@@ -155,7 +155,7 @@ export async function getSummaryStats(nodes: string[], startDate: Date) {
       //console.log(element);
       element.forEach ( (values, namespace) => {
         let cur_namespace = namespace_results.get(namespace);
-        if (cur_namespace == undefined) {
+        if (!cur_namespace) {
           cur_namespace = new Map<string, number>();
           namespace_results.set(namespace, cur_namespace);
         }
