@@ -1,5 +1,3 @@
-'use client';
-
 import useSWR from "swr";
 import { Site } from "../lib/states";
 import { ArrowPathIcon, ComputerDesktopIcon, CpuChipIcon, UserGroupIcon } from "@heroicons/react/24/outline";
@@ -17,7 +15,7 @@ Burnt orange: #EE6C4D
 // Define the fetcher function
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-function SummaryStat({ title, value, icon, bgColor, error }: { title: string, value: number | null, icon?: any, bgColor?: string, error: string }) {
+function SummaryStat({ title, value, icon, bgColor, error }: { title: string, value: number | null, icon?: any, bgColor?: string, error: string}) {
   return (
     <>
       <div className={`${!bgColor ? "bg-slate-100" : ""} rounded-sm p-4 py-6 flex text-white w-full`}
@@ -29,7 +27,7 @@ function SummaryStat({ title, value, icon, bgColor, error }: { title: string, va
               <div className='text-4xl font-bold w-full'>{value && Math.round(value).toLocaleString()}
               </div>) : error ? (
                 <div className='text-4xl font-bold w-full'>Error, please refresh</div>
-              ) : 
+              ) :
               (
                 <div className="flex gap-2 items-center">
                   <div>
@@ -50,29 +48,41 @@ function SummaryStat({ title, value, icon, bgColor, error }: { title: string, va
 }
 
 
-export default function SummaryStats({ sites }: { sites: Site[] }) {
+export default function SummaryStats({ sites, cachedData }: { sites: Site[], cachedData: any }) {
 
   // Calculate the name of all the nodes
   const nodes = sites.map((site) => site.nodes ? site.nodes.map((node) => node.hostname) : null).flat();
-  const { data, error } = useSWR(`/api/summaryStats?metric=gpu`, fetcher);
-  const { data: cpuData, error: error2 } = useSWR(`/api/summaryStats?metric=cpu`, fetcher);
-  console.log(data);
-  let totalGpuHours: number | null = null;
+  const { data, error } = useSWR(`/api/summaryStats`, fetcher);
+
+  // Calculate the total GPU hours from the data
+  let totalGpuHours: number = 0;
+  let totalCpuHours: number = 0;
+  let totalGpuNamespaces: number = 0;
+  let tmpData = cachedData;
+  //console.log("Data: ", tmpData);
   if (data) {
-    totalGpuHours = data.reduce((acc: number, d: { namespace: string, value: number }) => acc + d.value, 0);
+    tmpData = data.data;
   }
-  let totalCpuHours: number | null = null;
-  if (cpuData) {
-    totalCpuHours = cpuData.reduce((acc: number, d: { namespace: string, value: number }) => acc + d.value, 0);
+  for (const [key, value] of Object.entries(tmpData)) {
+    console.log(key, value);
+    if (Object.hasOwn((value as {}), "cpu")) {
+      totalCpuHours += (value as { cpu: number }).cpu;
+    }
+    if (Object.hasOwn((value as {}), "nvidia_com_gpu")) {
+      totalGpuHours += (value as { nvidia_com_gpu: number }).nvidia_com_gpu;
+      totalGpuNamespaces++;
+    }
   }
+
+
 
   return (
     <>
       <div className='text-xl font-bold p-2'>Summary Statistics since Oct 1, 2023</div>
       <div className="grid grid-flow-auto lg:grid-cols-3 gap-2 p-2">
-        <SummaryStat title='Research Groups Enabled' value={data ? data.length : null} icon={<UserGroupIcon />} bgColor="#754668" error={error} />
+        <SummaryStat title='Research Groups Enabled' value={totalGpuNamespaces} icon={<UserGroupIcon />} bgColor="#754668" error={error} />
         <SummaryStat title='GPU Hours' value={totalGpuHours} icon={<ComputerDesktopIcon />} bgColor="#EE6C4D" error={error} />
-        <SummaryStat title='CPU Hours' value={totalCpuHours} icon={<CpuChipIcon />} bgColor="#68805e" error={error2} />
+        <SummaryStat title='CPU Hours' value={totalCpuHours} icon={<CpuChipIcon />} bgColor="#68805e" error={error} />
       </div>
     </>
   )

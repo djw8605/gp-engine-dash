@@ -11,9 +11,10 @@ import DashboardList from '../components/dashboardList';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import SiteSummaryStats from '../components/siteSummaryStats';
 import SummaryStats from '../components/summaryStats';
+import downloadSummaryStats from '../lib/downloadSummaryStats'
 
 export default function Home(
-  { statesGeoJson, sites }: { statesGeoJson: GeoJSON.FeatureCollection, sites: Site[] }
+  { statesGeoJson, sites, cachedSummaryStats }: { statesGeoJson: GeoJSON.FeatureCollection, sites: Site[], cachedSummaryStats: any}
 ) {
 
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -174,7 +175,7 @@ export default function Home(
         </section >
         <section>
         <div className='container mx-auto'>
-            <SummaryStats sites={sites} />
+            <SummaryStats sites={sites} cachedData={cachedSummaryStats} />
           </div>
         </section>
         <section>
@@ -191,10 +192,12 @@ export const getStaticProps: GetStaticProps = async () => {
   // Load in the geojson in data/us_states.geojson
   const statesGeoJson = getStates();
   const sites = getSites();
+  const cachedSummaryStats = await downloadSummaryStats()
   return {
     props: {
       statesGeoJson,
-      sites
+      sites,
+      cachedSummaryStats
     },
   };
 };

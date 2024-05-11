@@ -1,1 +1,10 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+GP-ENGINE Dashboard
+===================
+
+Running the stats updater
+-------------------------
+
+```
+npx tsc --resolveJsonModule --esModuleInterop pre-parse/*.ts && node pre-parse/main.js
+```
+
