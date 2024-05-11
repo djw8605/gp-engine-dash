@@ -64,7 +64,7 @@ async function calculateUsage() {
 
   // Upload to s3
   let s3 = getS3();
-  s3.upload(uploadParams, function (err, data) {
+  s3.upload(uploadParams, function (err: any, data: any) {
     if (err) {
       console.log(err, err.stack);
     } else {
