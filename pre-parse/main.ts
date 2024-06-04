@@ -90,12 +90,17 @@ async function getTimeToCalculate() {
     stats.namespaceValue.forEach((value, namespace) => {
       if (culminatedStats.has(namespace)) {
         let currentNamespace = culminatedStats.get(namespace);
+        if (currentNamespace == null) {
+          currentNamespace = new Map<string, number>();
+          culminatedStats.set(namespace, currentNamespace);
+          return;
+        }
         value.forEach((resourceValue, resource) => {
-          if (currentNamespace.has(resource)) {
+          if (currentNamespace?.has(resource)) {
             let currentResource = currentNamespace.get(resource);
-            currentNamespace.set(resource, currentResource + resourceValue);
+            currentNamespace.set(resource, (currentResource as number) + resourceValue);
           } else {
-            currentNamespace.set(resource, resourceValue);
+            currentNamespace?.set(resource, resourceValue);
           }
         });
       } else {
@@ -218,11 +223,11 @@ async function calculateUsage() {
           return;
         }
         value.forEach((resourceValue, resource) => {
-          if (currentNamespace.has(resource)) {
+          if (currentNamespace?.has(resource)) {
             let currentResource = currentNamespace.get(resource);
-            currentNamespace.set(resource, currentResource + resourceValue);
+            currentNamespace.set(resource, (currentResource as number) + resourceValue);
           } else {
-            currentNamespace.set(resource, resourceValue);
+            currentNamespace?.set(resource, resourceValue);
           }
         });
       } else {
