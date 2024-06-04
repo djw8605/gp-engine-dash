@@ -70,12 +70,14 @@ async function getTimeToCalculate() {
   endTime.setSeconds(0);
   endTime.setMilliseconds(0);
 
+
   let now = new Date();
   while (startTime < endTime) {
     // Calculate the monthly name of the file
     let currentMonth = startTime.getMonth();
     let currentYear = startTime.getFullYear();
     let filePath = `gp-engine/website/summary_stats_${currentYear}_${currentMonth}.json`;
+    console.log("Looking for file: " + filePath);
 
     try {
       var stats = await downloadSummaryStats(filePath);
@@ -171,7 +173,7 @@ async function calculateUsage() {
   // Get the last calculated date
   let lastCaclulated = await getTimeToCalculate();
 
-  console.log("Last calculated: " + lastCaclulated);
+  console.log("Last calculated: " + lastCaclulated.lastDate);
 
   let startTime = new Date('2023-10-01');
   startTime = lastCaclulated.lastDate;
@@ -192,24 +194,16 @@ async function calculateUsage() {
     let filePath = `gp-engine/website/summary_stats_${currentYear}_${currentMonth}.json`;
     let stats: NamespaceValue;
 
-    try {
-
-      var returnedStats = await downloadSummaryStats(filePath);
-      stats = returnedStats.namespaceValue;
-    } catch (err) {
-      // Failed to get the stats
-      console.log("Failed to get the stats for: " + filePath + ": calculating:...");
-      // Get the usage for the month
-      let monthEndTime = new Date(startTime)
-      monthEndTime.setMonth(startTime.getMonth() + 1);
-      stats = await getSummaryStats(nonNullNodes, startTime, monthEndTime);
-      let to_upload = {namespaceValue: convertNamespaceValueToObject(stats), lastDate: new Date().toISOString()};
-      // Upload the stats
-      console.log("Uploading: " + filePath);
-      console.log(`to_upload: ${JSON.stringify(to_upload)}`);
-      await uploadStats(to_upload, filePath);
-      console.log("Uploaded: " + filePath);
-    }
+    // Get the usage for the month
+    let monthEndTime = new Date(startTime)
+    monthEndTime.setMonth(startTime.getMonth() + 1);
+    stats = await getSummaryStats(nonNullNodes, startTime, monthEndTime);
+    let to_upload = {namespaceValue: convertNamespaceValueToObject(stats), lastDate: new Date().toISOString()};
+    // Upload the stats
+    console.log("Uploading: " + filePath);
+    console.log(`to_upload: ${JSON.stringify(to_upload)}`);
+    await uploadStats(to_upload, filePath);
+    console.log("Uploaded: " + filePath);
 
 
     console.log("Merging culminated with: " + stats.size);
