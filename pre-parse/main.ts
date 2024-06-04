@@ -45,7 +45,7 @@ async function downloadSummaryStats(filePath: string) {
         let lastDate = new Date(summaryStats.last_calculated);
         let namespaceValue = new Map<string, Map<string, number>>();
         Object.entries(summaryStats.namespaceValue).forEach(([namespace, value]) => {
-          namespaceValue.set(namespace, new Map(Object.entries(value)));
+          namespaceValue.set(namespace, new Map(Object.entries(value as {})));
         });
         resolve({namespaceValue, lastDate});
       }
