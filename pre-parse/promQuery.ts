@@ -100,11 +100,14 @@ async function queryProm(query: string, endTime: Date) {
       // Convert from a map to an array of keys and values
       //let groupedArray = Array.from(namespaceValues, ([namespace, value]) => ({ namespace, value }));
       resolve(namespaceValues);
+    }).catch((error) => {
+      console.log(error);
+      reject(error);
     });
   });
 }
 
-export async function getSummaryStats(nodes: string[], startDate: Date) {
+export async function getSummaryStats(nodes: string[], startDate: Date, endDate: Date) {
 
     // Create dates for start and end times, endtime is now, starttime is 1 month ago
     const queryNodes = nodes.join('|');
@@ -112,12 +115,19 @@ export async function getSummaryStats(nodes: string[], startDate: Date) {
     // If the range is larger than 30, make 30 day steps and do a sum at the end
     let results: NamespaceValue[] = [];
     let startEpoch = startDate.getTime() / 1000;
-    let endEpoch = startEpoch + 30 * 24 * 3600;
-    while (startEpoch < new Date().getTime() / 1000) {
-      console.log("Querying between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000));
-      query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}'}[30d:1h]@${endEpoch}))`;
-      let result = await queryProm(query, new Date(endEpoch));
-      results.push(result);
+    let endEpoch = (endDate.getTime() / 1000);
+
+    // Figure out how many days between start and end
+    let days = Math.round((endEpoch - startEpoch) / (3600 * 24));
+
+    console.log("Querying between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000));
+    query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}'}[${days}d:1h]@${endEpoch}))`;
+    console.log(query);
+    let result = await queryProm(query, new Date(endEpoch));
+    console.log(result);
+    results.push(result);
+
+
       
       /*
       if (metric == "nvidia_com_gpu") {
@@ -130,9 +140,8 @@ export async function getSummaryStats(nodes: string[], startDate: Date) {
       }
       */
       
-      startEpoch = endEpoch;
-      endEpoch = startEpoch + 30 * 24 * 3600;
-    }
+      
+
     //console.log("Metric: " + metric + ", Querying between " + new Date(startEpoch*1000) + " and " + new Date(endEpoch*1000));
     /*
     query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}',resource='${metric}'}[30d:1h]@${startEpoch}))`;
@@ -169,7 +178,7 @@ export async function getSummaryStats(nodes: string[], startDate: Date) {
       });
     });
 
-    //console.log(namespace_results);
+    console.log(namespace_results);
 
     /*
     // Convert the map to an array of key and values objects:
@@ -179,8 +188,10 @@ export async function getSummaryStats(nodes: string[], startDate: Date) {
       to_return.push({namespace: namespace, value: value})
     })
     */
-    return namespace_results;
 
+    return new Promise<NamespaceValue>((resolve, reject) => {
+        resolve(namespace_results);
+    });
 
 
 }

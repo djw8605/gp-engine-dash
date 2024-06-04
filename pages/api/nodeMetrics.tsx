@@ -25,7 +25,7 @@ async function getUsage(nodes: string[]) {
 
     // Join the nodes into a string
     const queryNodes = nodes.join('|');
-    const query = `sum by (namespace, resource) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}'}[1d:1h]))`;
+    const query = `sum by (namespace) (sum_over_time(namespace_allocated_resources{node=~'${queryNodes}', resource=~"nvidia_com.*"}[1d:1h]))`;
 
     // Log the query
     console.log(query);
@@ -35,19 +35,16 @@ async function getUsage(nodes: string[]) {
       endTime,
       step
     ).then((result) => {
-      //console.log(result);
+      console.log(result);
       // log each result
-      //result.result.forEach((r) => {
-      //  console.log(r);
-      //});
+      result.result.forEach((r) => {
+        console.log(r);
+      });
 
       // Group the results by time
       let groupedResults = new Map<number, NamespaceValue[]>();
       result.result.forEach((r: RangeVector) => {
 
-        if (r.metric.labels && (r.metric.labels as { resource?: string }).resource && (r.metric.labels as { resource?: string }).resource !== "nvidia_com_gpu") {
-          return; 
-        }
         r.values.forEach((v: SampleValue) => {
           let date = v.time;
           if (!r.metric.labels || !(r.metric.labels as { namespace: string }).namespace) {

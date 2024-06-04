@@ -68,9 +68,13 @@ export default function SummaryStats({ sites, cachedData }: { sites: Site[], cac
     if (Object.hasOwn((value as {}), "cpu")) {
       totalCpuHours += (value as { cpu: number }).cpu;
     }
-    if (Object.hasOwn((value as {}), "nvidia_com_gpu")) {
-      totalGpuHours += (value as { nvidia_com_gpu: number }).nvidia_com_gpu;
-      totalGpuNamespaces++;
+
+    // Loop the values regex for nvidia_com
+    for (const [namespaceKey, namespaceValue] of Object.entries(value as {})) {
+      if (namespaceKey.match(/nvidia_com.*/)) {
+        totalGpuHours += (namespaceValue as number);
+        totalGpuNamespaces++;
+      }
     }
   }
 
