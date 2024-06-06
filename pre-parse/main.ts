@@ -8,9 +8,10 @@ import aws from 'aws-sdk';
 
 function getS3() {
   return new aws.S3({
-    accessKeyId: process.env.NAUTILUS_ID,
-    secretAccessKey: process.env.NAUTILUS_ACCESS_KEY,
-    endpoint: 'https://s3-west.nrp-nautilus.io',
+    accessKeyId: process.env.CLOUDFLARE_ID,
+    secretAccessKey: process.env.CLOUDFLARE_ACCESS_KEY,
+    endpoint: 'https://8472a317947374b661241ed891c9589c.r2.cloudflarestorage.com',
+    /*
     signatureVersion: 'v4',
     s3ForcePathStyle: true,
     /*
@@ -31,7 +32,7 @@ async function downloadSummaryStats(filePath: string) {
   return new Promise<ReturnNamespaceDate>((resolve, reject) => {
     let s3 = getS3();
     let params = {
-      Bucket: 'dweitzel',
+      Bucket: 'gp-engine',
       Key: filePath
     };
 
@@ -76,7 +77,7 @@ async function getTimeToCalculate() {
     // Calculate the monthly name of the file
     let currentMonth = startTime.getMonth();
     let currentYear = startTime.getFullYear();
-    let filePath = `gp-engine/website/summary_stats_${currentYear}_${currentMonth}.json`;
+    let filePath = `gp-engine-dash/summary_stats_${currentYear}_${currentMonth}.json`;
     console.log("Looking for file: " + filePath);
 
     try {
@@ -133,7 +134,7 @@ async function uploadStats(stats: { namespaceValue: Object, lastDate: string }, 
     console.log("In uploadStats, stats: " + stats);
 
     const uploadParams = {
-      Bucket: 'dweitzel',
+      Bucket: 'gp-engine',
       Key: filePath,
       Body: JSON.stringify(stats),
       ContentType: 'application/json',
@@ -191,7 +192,7 @@ async function calculateUsage() {
   while (startTime < endTime) {
     let currentMonth = startTime.getMonth();
     let currentYear = startTime.getFullYear();
-    let filePath = `gp-engine/website/summary_stats_${currentYear}_${currentMonth}.json`;
+    let filePath = `gp-engine-dash/summary_stats_${currentYear}_${currentMonth}.json`;
     let stats: NamespaceValue;
 
     // Get the usage for the month
@@ -253,8 +254,8 @@ async function calculateUsage() {
   }
 
   const uploadParams = {
-    Bucket: 'dweitzel',
-    Key: 'gp-engine/website/summary_stats.json',
+    Bucket: 'gp-engine',
+    Key: 'gp-engine-dash/summary_stats.json',
     Body: JSON.stringify(to_upload),
     ContentType: 'application/json',
     ACL: 'public-read'

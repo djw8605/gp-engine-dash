@@ -52,7 +52,8 @@ export default function SummaryStats({ sites, cachedData }: { sites: Site[], cac
 
   // Calculate the name of all the nodes
   const nodes = sites.map((site) => site.nodes ? site.nodes.map((node) => node.hostname) : null).flat();
-  const { data, error } = useSWR(`/api/summaryStats`, fetcher);
+  const {data, error } = useSWR(process.env.NEXT_PUBLIC_SUMMARY_STATS_URL, fetcher);
+  //const { data, error } = useSWR(`/api/summaryStats`, fetcher);
 
   // Calculate the total GPU hours from the data
   let totalGpuHours: number = 0;
