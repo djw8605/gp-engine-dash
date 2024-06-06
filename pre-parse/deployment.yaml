@@ -25,16 +25,16 @@ spec:
                 npx tsc --resolveJsonModule --esModuleInterop pre-parse/*.ts &&
                 node pre-parse/main.js
             env:
-              - name: NAUTILUS_ID
+              - name: CLOUDFLARE_ID
                 valueFrom:
                   secretKeyRef:
-                    name: nautilus-secret
-                    key: NAUTILUS_ID
-              - name: NAUTILUS_ACCESS_KEY
+                    name: cloudflare-secret
+                    key: CLOUDFLARE_ID
+              - name: CLOUDFLARE_ACCESS_KEY
                 valueFrom:
                   secretKeyRef:
-                    name: nautilus-secret
-                    key: NAUTILUS_ACCESS_KEY
+                    name: cloudflare-secret
+                    key: CLOUDFLARE_ACCESS_KEY
             resources:
               requests:
                 cpu: "1"
