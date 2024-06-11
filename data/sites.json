@@ -71,16 +71,6 @@
             ]
         },
         {
-            "name": "University of Kansas",
-            "url": "https://ku.edu/",
-            "logo": "/images/ku.png",
-            "lat": 38.95456914692783,
-            "log": -95.25580683080793,
-            "hostname": "ku.gp-argo.greatplains.net",
-            "city": "Lawrence",
-            "state": "Kansas"
-        },
-        {
             "name": "South Dakota State University",
             "url": "https://www.sdstate.edu/",
             "logo": "/images/sdstate.png",
