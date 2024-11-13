@@ -60,8 +60,8 @@ export default function NamespaceTable({ sites, selectedNamespace }: { sites: Si
 
   const { data: namespaceData, error: namespaceError } = useSWR(`/api/namespaceInfo`, fetcher, { refreshInterval: 10000 });
 
-  if (data && namespaceData && namespaceDataState.length === 0) {
-    // Create an emtpy array of namespaces
+  if (data && gpuValues.length > 0 && namespaceData && namespaceDataState.length === 0) {
+    // Create an emtpy arragy of namespaces
     let namespaceDataArray: Namespace[] = [];
     //console.log(data);
 
@@ -86,6 +86,7 @@ export default function NamespaceTable({ sites, selectedNamespace }: { sites: Si
     // Sor the namespaceDataArray by gpusHours
     namespaceDataArray.sort((a, b) => b.gpusHours - a.gpusHours);
     setNamespaceData(namespaceDataArray);
+
   }
 
 
