@@ -18,7 +18,7 @@ async function gatherNamespaces() {
     })
     var result2 = null;
     try {
-      result2 = client.request('guest.ListNsInfo', [], function (err, error, response) {
+      result2 = client.request('admin.ListNsInfo', [], function (err, error, response) {
         // Catch the error
         if (err) {
           console.log("Rejecting because of err: " + err);
