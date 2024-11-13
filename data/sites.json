@@ -280,9 +280,23 @@
             "logo": "/images/utulsa.png",
             "lat": 36.15329114058467,
             "log": -95.94265522380262,
-            "hostname": "utulsa.gp-argo.greatplains.net",
+            "hostname": "tu.gp-engine.greatplains.net",
             "city": "Tulsa",
-            "state": "Oklahoma"
+            "state": "Oklahoma",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "tu.gp-engine.greatplains.net",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                }
+            ]
         }
     ]
 }
