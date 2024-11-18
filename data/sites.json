@@ -91,6 +91,17 @@
                     "gpus": 4,
                     "memory": 1024,
                     "gpuModel": "NVIDIA A100 80GB"
+                },
+                {
+                    "hostname": "sdsu.gp-argo.greatplains.net",
+                    "active": true,
+                    "tags": [
+                        "gp-argo"
+                    ],
+                    "cpus": 128,
+                    "gpus": 1,
+                    "memory": 512,
+                    "gpuModel": "NVIDIA A100 40GB"
                 }
             ]
         },
