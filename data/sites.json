@@ -44,7 +44,21 @@
             "log": -96.92528021778602,
             "hostname": "usd.gp-argo.greatplains.net",
             "city": "Vermillion",
-            "state": "South Dakota"
+            "state": "South Dakota",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "gp-engine.usd.edu",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                }
+            ]
         },
         {
             "name": "Kansas State University",
