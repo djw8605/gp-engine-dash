@@ -83,8 +83,8 @@ export default function SummaryStats({ sites, cachedData }: { sites: Site[], cac
 
   return (
     <>
-      <div className='text-xl font-bold p-2'>Summary Statistics since Oct 1, 2023</div>
-      <div className="grid grid-flow-auto lg:grid-cols-3 gap-2 p-2">
+      <div className='text-xl font-bold p-1'>Summary Statistics since Oct 1, 2023</div>
+      <div className="grid grid-flow-auto lg:grid-cols-3 gap-2 p-1">
         <SummaryStat title='Research Groups Enabled' value={totalGpuNamespaces} icon={<UserGroupIcon />} bgColor="#754668" error={error} />
         <SummaryStat title='GPU Hours' value={totalGpuHours} icon={<ComputerDesktopIcon />} bgColor="#EE6C4D" error={error} />
         <SummaryStat title='CPU Hours' value={totalCpuHours} icon={<CpuChipIcon />} bgColor="#68805e" error={error} />
