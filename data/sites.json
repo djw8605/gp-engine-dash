@@ -322,6 +322,30 @@
                     "gpuModel": "NVIDIA A100 80GB"
                 }
             ]
+        },
+        {
+            "name": "Oral Roberts University",
+            "url": "https://oru.edu/",
+            "logo": "/images/oru.png",
+            "lat": 36.04893271758074, 
+            "log": -95.95137275909106,
+            "hostname": "oru.gp-argo.greatplains.net",
+            "city": "Tulsa",
+            "state": "Oklahoma",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "oru.gp-argo.greatplains.net",
+                    "active": true,
+                    "tags": [
+                        "gp-argo"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 512,
+                    "gpuModel": "NVIDIA A100 40GB"
+                }
+            ]
         }
     ]
 }
