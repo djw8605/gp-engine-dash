@@ -341,7 +341,7 @@
                         "gp-argo"
                     ],
                     "cpus": 128,
-                    "gpus": 4,
+                    "gpus": 1,
                     "memory": 512,
                     "gpuModel": "NVIDIA A100 40GB"
                 }
