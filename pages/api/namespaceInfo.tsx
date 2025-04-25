@@ -11,7 +11,7 @@ async function gatherNamespaces() {
 
     // Get the namespace information from the NRP portal
     const client = jayson.client.https({
-      host: 'portal.nrp-nautilus.io',
+      host: 'portal.nrp.ai',
       port: 443,
       path: '/rpc',
     // Remove the 'withCredentials' property
