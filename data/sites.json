@@ -346,6 +346,30 @@
                     "gpuModel": "NVIDIA A100 40GB"
                 }
             ]
+        },
+        {
+            "name": "South Dakota Mines",
+            "url": "https://www.sdsmt.edu/",
+            "logo": "/images/sdsmt.png",
+            "lat": 44.07317886071797,
+            "log": -103.20622645904686,
+            "hostname": "sdsmt.gp-argo.greatplains.net",
+            "city": "Rapid City",
+            "state": "South Dakota",
+            "active": true,
+            "nodes": [
+                {
+                    "hostname": "sdsmt.gp-argo.greatplains.net",
+                    "active": true,
+                    "tags": [
+                        "gp-argo"
+                    ],
+                    "cpus": 128,
+                    "gpus": 1,
+                    "memory": 512,
+                    "gpuModel": "NVIDIA A100 40GB"
+                }
+            ]
         }
     ]
 }
