@@ -127,7 +127,20 @@
             "log": -97.07137710711247,
             "hostname": "osu.gp-argo.greatplains.net",
             "city": "Stillwater",
-            "state": "Oklahoma"
+            "state": "Oklahoma",
+            "nodes": [
+                {
+                    "hostname": "gp-engine.hpc.okstate.edu",
+                    "active": true,
+                    "tags": [
+                        "gp-engine"
+                    ],
+                    "cpus": 128,
+                    "gpus": 4,
+                    "memory": 1024,
+                    "gpuModel": "NVIDIA A100 80GB"
+                }
+            ]
         },
         {
             "name": "University of Arkansas for Medical Sciences",
